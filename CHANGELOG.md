@@ -12,6 +12,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Deprecated
 - `OxidEsales\EshopCommunity\Application\Controller\Admin\ArticleSeo::_getSaveObjectId`
+- \OxidEsales\EshopCommunity\Application\Model\Diagnostics::$_sRevision
+- \OxidEsales\EshopCommunity\Application\Model\Diagnostics::getRevision()
+- \OxidEsales\EshopCommunity\Application\Model\Diagnostics::setRevision()
+- \OxidEsales\EshopCommunity\Application\Model\FileChecker::$_sRevision
+- \OxidEsales\EshopCommunity\Application\Model\FileChecker::setRevision()
+- \OxidEsales\EshopCommunity\Application\Model\FileChecker::getRevision()
+- \OxidEsales\EshopCommunity\Core\Config::getRevision()
+- \OxidEsales\EshopCommunity\Core\Controller\BaseController::getRevision()
 
 ### Removed
 - 'Your market' selection was removed from Setup wizard, as this value is no longer evaluated
