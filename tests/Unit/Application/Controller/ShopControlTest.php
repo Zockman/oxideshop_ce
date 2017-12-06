@@ -275,20 +275,21 @@ class ShopControlTest extends \OxidTestCase
      */
     public function testStartConnectionExceptionHandled()
     {
-        $exception = $this->stubExceptionToNotWriteToLog(ConnectionException::class);
+        $exceptionMock = $this->getMock(ConnectionException::class, ['debugOut']);
+        $exceptionMock->expects($this->any())->method('debugOut');
 
         $oxUtils = $this->getMock(\OxidEsales\Eshop\Core\Utils::class, array("redirect"));
         $oxUtils->expects($this->never())->method("redirect");
         oxTestModules::addModuleObject("oxUtils", $oxUtils);
 
         $oxUtilsView = $this->getMock(\OxidEsales\Eshop\Core\UtilsView::class, array("addErrorToDisplay"));
-        $oxUtilsView->expects($this->atLeastOnce())->method("addErrorToDisplay")->with($exception);
+        $oxUtilsView->expects($this->atLeastOnce())->method("addErrorToDisplay")->with($exceptionMock);
         oxTestModules::addModuleObject("oxUtilsView", $oxUtilsView);
 
         $oControl = $this->getMock(\OxidEsales\Eshop\Core\ShopControl::class, array("_runOnce", "isAdmin", "_process", "_isDebugMode"), array(), '', false);
         $oControl->expects($this->any())->method('_runOnce');
         $oControl->expects($this->any())->method('isAdmin')->will($this->returnValue(false));
-        $oControl->expects($this->any())->method('_process')->will($this->throwException($exception));
+        $oControl->expects($this->any())->method('_process')->will($this->throwException($exceptionMock));
         $oControl->expects($this->any())->method('_isDebugMode')->will($this->returnValue(true));
 
         try {
@@ -303,7 +304,8 @@ class ShopControlTest extends \OxidTestCase
      */
     public function testRenderTemplateNotFound()
     {
-        $this->stubExceptionToNotWriteToLog(oxSystemComponentException::class, oxSystemComponentException::class);
+        /** RB @TODO */
+        // $this->stubExceptionToNotWriteToLog(oxSystemComponentException::class, oxSystemComponentException::class);
 
         $oView = $this->getMock(\OxidEsales\Eshop\Core\Controller\BaseController::class, array('render'));
         $oView->expects($this->once())->method('render')->will($this->returnValue('wrongTpl'));

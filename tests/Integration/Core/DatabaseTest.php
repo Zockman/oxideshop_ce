@@ -86,14 +86,12 @@ class DatabaseTest extends UnitTestCase
         Registry::set(\OxidEsales\Eshop\Core\ConfigFile::class, $configFile);
         $this->setProtectedClassProperty(oxDb::getInstance(), 'db', null);
 
-        $this->setExpectedException('OxidEsales\EshopCommunity\Core\Exception\DatabaseConnectionException');
-
         try {
             oxDb::getDb();
+            $this->fail('A DatabaseConnectionException should have been thrown, as the ConfigFile object does contain proper credentials.');
         } catch (DatabaseConnectionException $exception) {
             /** Restore original configFile object */
             Registry::set(\OxidEsales\Eshop\Core\ConfigFile::class, $configFileBackup);
-            throw $exception;
         }
     }
 
@@ -107,14 +105,12 @@ class DatabaseTest extends UnitTestCase
         Registry::set(\OxidEsales\Eshop\Core\ConfigFile::class, $configFile);
         $this->setProtectedClassProperty(oxDb::getInstance(), 'db', null);
 
-        $this->setExpectedException('OxidEsales\EshopCommunity\Core\Exception\DatabaseNotConfiguredException');
-
         try {
             oxDb::getDb();
+            $this->fail('A DatabaseNotConfiguredException should have been thrown, as the ConfigFile object does does not pass validation.');
         } catch (DatabaseNotConfiguredException $exception) {
             /** Restore original configFile object */
             Registry::set(\OxidEsales\Eshop\Core\ConfigFile::class, $configFileBackup);
-            throw $exception;
         }
     }
 

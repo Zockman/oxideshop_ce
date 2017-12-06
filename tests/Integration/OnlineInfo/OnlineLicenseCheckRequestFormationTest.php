@@ -63,7 +63,7 @@ class OnlineLicenseCheckRequestFormationTest extends \OxidEsales\TestingLibrary\
         $xml .= '<olcRequest>';
         $xml .=   '<pVersion>1.1</pVersion>';
         $xml .=   '<keys><key>license_key</key></keys>';
-        $xml .=   '<revision></revision>';
+        $xml .=   '<revision/>';
         $xml .=   '<productSpecificInformation>';
         $xml .=     '<servers>';
         $xml .=       '<server>';
@@ -149,7 +149,7 @@ class OnlineLicenseCheckRequestFormationTest extends \OxidEsales\TestingLibrary\
         $sXml .=   '<key>license_key</key>';
         $sXml .=   '<key state="new">new_serial</key>';
         $sXml .=   '</keys>';
-        $sXml .=   '<revision></revision>';
+        $sXml .=   '<revision/>';
         $sXml .=   '<productSpecificInformation>';
         $sXml .=     '<servers>';
         $sXml .=       '<server>';
